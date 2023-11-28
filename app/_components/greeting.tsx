@@ -34,13 +34,15 @@ const Greeting = () => {
   }, []);
 
   return (
-    <div
-      className={cn(
-        "flex justify-center items-center h-screen bg-black",
-        hide && "animate-slideUp"
-      )}
-    >
-      <div className="text-white text-4xl">{greetings[index]}</div>
+    <div className="relative">
+      <div
+        className={cn(
+          "flex justify-center items-center h-screen bg-black absolute top-0 left-0 w-full z-50",
+          hide && "animate-slideUp"
+        )}
+      >
+        <div className="text-white text-4xl">{greetings[index]}</div>
+      </div>
     </div>
   );
 };
