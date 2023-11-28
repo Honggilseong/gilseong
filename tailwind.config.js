@@ -71,6 +71,7 @@ module.exports = {
         },
         slideUp: {
           "0%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-25%)" },
           "100%": { transform: "translateY(-100%)" },
         },
       },
@@ -78,7 +79,7 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         fadeInOut: "fadeInOut 3s ease-in-out infinite",
-        slideUp: "slideUp 1s ease-in-out forwards",
+        slideUp: "slideUp 1.5s ease-in-out forwards",
       },
     },
   },
