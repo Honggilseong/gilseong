@@ -1,33 +1,38 @@
 "use client";
-import CanvasLoader from "../canvas-loader";
 import { Mesh } from "three";
-import React, { Suspense, useRef, useState } from "react";
+import React, { Suspense, useRef, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Decal, Float, OrbitControls, useTexture } from "@react-three/drei";
-
 import { StaticImageData } from "next/image";
+
+import CanvasLoader from "../canvas-loader";
 
 const Ball = ({ imgUrl }: { imgUrl: string }) => {
   const [decal] = useTexture([imgUrl]);
   const ballRef = useRef<Mesh>(null);
   const [hovered, setHovered] = useState(false);
-  useFrame((state) => {
-    const { mouse } = state;
+  const [originalY, setOriginalY] = useState(0);
+
+  useEffect(() => {
+    if (ballRef.current) {
+      setOriginalY(ballRef.current.position.y);
+    }
+  }, []);
+
+  useFrame(() => {
     const ball = ballRef.current;
     if (ball) {
       if (hovered) {
-        ball.position.x += (mouse.x * 0.5 - ball.position.x) * 0.1;
-        ball.position.y += (-mouse.y * 0.5 - ball.position.y) * 0.1;
+        ball.position.y = originalY + 0.4;
       } else {
-        ball.position.x += -ball.position.x * 0.1;
-        ball.position.y += -ball.position.y * 0.1;
+        ball.position.y += (originalY - ball.position.y) * 0.1;
       }
     }
   });
 
   return (
     <Float speed={1.75} rotationIntensity={1} floatIntensity={2}>
-      <ambientLight intensity={0.25} />
+      <ambientLight intensity={0.45} />
       <directionalLight position={[0, 0, 0.05]} />
       <mesh
         ref={ballRef}
